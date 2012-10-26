@@ -1,6 +1,0 @@
-write("Creating lib dir...")
-fs.makeDir("/lib")
-write("Installing lib files to dir...")
-fs.copy("/disk/lib", "/lib")
-write("Loading apis...")
-os.loadAPI('/lib/gpss')
