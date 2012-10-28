@@ -1,4 +1,4 @@
 write("Installing Rel Api 0.1")
-shell.run("installAPI.lua")
-shell.run("installBIN.lua")
+shell.run("/disk/installAPI.lua")
+shell.run("/disk/installBIN.lua")
 write("Installing Rel Api 0.1")
