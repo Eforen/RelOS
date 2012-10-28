@@ -1,17 +1,87 @@
+
+dirs = { }
+files = { }
+libs = {
+	{"Serialize API", "net/serialize.lua", "net/serialize", true},
+	{"Graphic Interface API", "gui/gui.lua", "gui/gui", true},
+	{"Config API", "util/config.lua", "util/config", true},
+	{"Vector API", "util/vector.lua", "util/vector", true},
+	{"SmartMove API", "turtle/smartmove.lua", "turtle/smartmove", true}
+}
+
+function dothing(dir, loc)
+	local FileList = fs.list(dir) --Table with all the files and directories available
+
+	for _,file in ipairs( FileList ) do --Loop. Underscore because we don't use the key, ipairs so it's in order
+		if fs.isDir(dir .. loc .. file) then
+			--dirs = {dirs, loc .. file}
+			table.insert(dirs, loc .. file)
+			dothing(dir .. "/" .. file, loc .. file .. "/")
+		else
+			--files = {files, loc .. file}
+			table.insert(files, loc .. file)
+		end
+		--print( "Found File:" .. file ) --Print the file name
+		--os.sleep( 0.3 )
+		--write("\n")
+	end --End the loop
+end
+
 write("Creating Bin Install Cache...\n")
 os.sleep( 0.2 )
-local FileList = fs.list("/disk/bin") --Table with all the files and directories available
 
-for _,file in ipairs( FileList ) do --Loop. Underscore because we don't use the key, ipairs so it's in order
-	print( "Found File:" .. file ) --Print the file name
+dothing("/disk/bin", "/")
+
+for _,dir in ipairs( dirs ) do
+	write(dir .. "/\n")
 	os.sleep( 0.3 )
-	--write("\n")
-end --End the loop
+end
+
+for _,file in ipairs( files ) do
+	write(tostring(file) .. "\n")
+	os.sleep( 0.3 )
+end
 
 os.sleep( 0.4 )
 write("Creating bin dir...\n")
 fs.makeDir("/bin")
 
+
+string.sub("123456789", -4, -1)
+
+
+
+for _,dir in ipairs( dirs ) do
+	write("Creating Dir: " .. "/bin" .. dir .. "/ ")
+	os.sleep( 0.1 )
+	write(".")
+	os.sleep( 0.1 )
+	write(".")
+	os.sleep( 0.1 )
+	write(".")
+	os.sleep( 0.1 )
+	write("\n")
+
+	fs.makeDir("/bin" .. dir)
+end
+
+for _,file in ipairs( files ) do
+	if string.sub(file, -4, -1) == ".lua" then
+		write("Copy File: " .. "/bin" .. string.sub(file, 1, -5))
+	else
+		write("Copy File: " .. "/bin" .. file)
+	end
+	os.sleep( 0.1 )
+	write(".")
+	os.sleep( 0.1 )
+	write(".")
+	os.sleep( 0.1 )
+	write(".")
+	os.sleep( 0.1 )
+	write("\n")
+end
+
+string.sub("123456789", -4, -1)
 --[[
 for dir in dirs do
 	write("Creating lib/"+dir)

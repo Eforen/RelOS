@@ -1,6 +1,6 @@
 term.clear()
 write("RelOS v0.1 Installing...\n")
 write("Installing RelOS Apis\n")
-shell.run("/disk/installAPI.lua")
+--shell.run("/disk/installAPI.lua")
 write("Installing RelOS Bins\n")
 shell.run("/disk/installBIN.lua")
