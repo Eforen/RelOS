@@ -8,10 +8,14 @@ write("Creating Install Cache...")
 -- }
 --	
 dirs = {
-	"move"
+	"gui", "net", "util", "turtle"
 }
 libs = {
-	{"GPS Server", "gpss.lua", "gpss", true}
+	{"Serialize API", "net/serialize.lua", "net/serialize", true}
+	{"Graphic Interface API", "gui/gui.lua", "gui/gui", true}
+	{"Config API", "util/config.lua", "util/config", true}
+	{"Vector API", "util/vector.lua", "util/vector", true}
+	{"SmartMove API", "turtle/smartmove.lua", "turtle/smartmove", true}
 }
 write("Creating lib dir...")
 fs.makeDir("/lib")
