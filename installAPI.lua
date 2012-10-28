@@ -1,4 +1,4 @@
-write("Creating Install Cache...")
+write("Creating Install Cache...\n")
 -- Lib format
 -- {
 --	string = Verbos name
@@ -11,27 +11,57 @@ dirs = {
 	"gui", "net", "util", "turtle"
 }
 libs = {
-	{"Serialize API", "net/serialize.lua", "net/serialize", true}
-	{"Graphic Interface API", "gui/gui.lua", "gui/gui", true}
-	{"Config API", "util/config.lua", "util/config", true}
-	{"Vector API", "util/vector.lua", "util/vector", true}
+	{"Serialize API", "net/serialize.lua", "net/serialize", true},
+	{"Graphic Interface API", "gui/gui.lua", "gui/gui", true},
+	{"Config API", "util/config.lua", "util/config", true},
+	{"Vector API", "util/vector.lua", "util/vector", true},
 	{"SmartMove API", "turtle/smartmove.lua", "turtle/smartmove", true}
 }
-write("Creating lib dir...")
-fs.makeDir("/lib")
-for dir in dirs do
-	write("Creating lib/"+dir)
-	fs.makeDir("/lib/"+dir)
-end
-write("Installing lib files to dir...")
-for lib in libs do
-	write("Installing lib "+lib[1])
-	fs.delete ("/lib/"+lib[3])
-	fs.copy("/disk/lib/"+lib[2], "/lib/"+lib[3])
-end
-write("Loading apis...")
+os.sleep( 0.4 )
 
-for lib in libs do
-	write("Loading api "+lib[3])
-	os.loadAPI('/lib/'+lib[3])
+
+write("Creating lib dir...\n")
+os.sleep( 0.4 )
+
+fs.makeDir("/lib")
+for i,dir in ipairs(dirs) do
+	write("Creating lib/" .. dir)
+	fs.makeDir("/lib/" .. dir)
+	os.sleep( 0.3 )
+	write(" *OK*\n")
+	os.sleep( 0.1 )
 end
+write("\n")
+os.sleep( 0.3 )
+
+
+
+write("Installing lib files to dir...\n")
+os.sleep( 0.4 )
+
+for i,lib in ipairs(libs) do
+	write("Installing lib " .. lib[1])
+	fs.delete ("/lib/" .. lib[3])
+	fs.copy("/disk/lib/" .. lib[2], "/lib/" .. lib[3])
+	os.sleep( 0.3 )
+	write(" *OK*\n")
+	os.sleep( 0.1 )
+end
+write("APIs Installed\n\n")
+	os.sleep( 0.3 )
+
+
+
+write("Loading apis...\n")
+os.sleep( 0.4 )
+
+for i,lib in ipairs(libs) do
+	write("Loading api " .. lib[3])
+	os.loadAPI('/lib/' .. lib[3])
+	os.sleep( 0.3 )
+	write(" *OK*\n")
+	os.sleep( 0.1 )
+end
+
+write("APIs Loaded\n\n")
+	os.sleep( 0.3 )

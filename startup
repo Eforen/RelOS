@@ -1,4 +1,6 @@
-write("Installing Rel Api 0.1")
+term.clear()
+write("RelOS v0.1 Installing...\n")
+write("Installing RelOS Apis\n")
 shell.run("/disk/installAPI.lua")
+write("Installing RelOS Bins\n")
 shell.run("/disk/installBIN.lua")
-write("Installing Rel Api 0.1")

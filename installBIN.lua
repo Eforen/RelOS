@@ -1,11 +1,15 @@
-write("Creating Bin Install Cache...")
-local FileList = fs.list("") --Table with all the files and directories available
+write("Creating Bin Install Cache...\n")
+os.sleep( 0.2 )
+local FileList = fs.list("/disk/bin") --Table with all the files and directories available
 
 for _,file in ipairs( FileList ) do --Loop. Underscore because we don't use the key, ipairs so it's in order
-  print( "Found File:" .. file ) --Print the file name
+	print( "Found File:" .. file ) --Print the file name
+	os.sleep( 0.3 )
+	--write("\n")
 end --End the loop
 
-write("Creating bin dir...")
+os.sleep( 0.4 )
+write("Creating bin dir...\n")
 fs.makeDir("/bin")
 
 --[[
