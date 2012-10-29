@@ -68,8 +68,12 @@ end
 for _,file in ipairs( files ) do
 	if string.sub(file, -4, -1) == ".lua" then
 		write("Copy File: " .. "/bin" .. string.sub(file, 1, -5))
+		os.delete("/bin" .. string.sub(file, 1, -5))
+		os.copy("/disk/bin" .. string.sub(file, 1, -5), "/bin" .. string.sub(file, 1, -5))
 	else
 		write("Copy File: " .. "/bin" .. file)
+		os.delete("/bin" .. file)
+		os.copy("/disk/bin" .. file, "/bin" .. string.sub(file, 1, -5))
 	end
 	os.sleep( 0.1 )
 	write(".")
