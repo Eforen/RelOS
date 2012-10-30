@@ -1,1 +1,1 @@
-RoutingTable
+local packetTypes.log = 1

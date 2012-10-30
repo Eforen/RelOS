@@ -1,5 +1,12 @@
 releaseVersion = false
 term.clear()
+print("  _____      _  ____   _____ ")
+print(" |  __ \\    | |/ __ \\ / ____|")
+print(" | |__) |___| | |  | | (___  ")
+print(" |  _  // _ \\ | |  | |\\___ \\ ")
+print(" | | \\ \\  __/ | |__| |____) |")
+print(" |_|  \\_\\___|_|\\____/|_____/ ")
+print()
 write("RelOS v0.1 Installing...\n")
 write("Installing RelOS Apis\n")
 shell.run("/disk/installAPI.lua")

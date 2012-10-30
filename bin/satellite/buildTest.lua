@@ -29,6 +29,17 @@ local slotFloppy2 = 8
 local slotFloppy3 = 9
 local slotFloppy4 = 10
 local slotLight = 11
+local slotTorch = 12
+
+
+print("  _____      _  ____   _____ ")
+print(" |  __ \\    | |/ __ \\ / ____|")
+print(" | |__) |___| | |  | | (___  ")
+print(" |  _  // _ \\ | |  | |\\___ \\ ")
+print(" | | \\ \\  __/ | |__| |____) |")
+print(" |_|  \\_\\___|_|\\____/|_____/ ")
+print()
+
 
 header()
 
@@ -68,25 +79,25 @@ while(turtle.getItemCount(slotWall) < 34) do
 end
 header()
 
-print("Please fill slot " .. slotFloppy1 .. " with 4 Floppys")
+print("Please fill slot " .. slotFloppy1 .. " with a floppy")
 while(turtle.getItemCount(slotFloppy1) < 1) do
 	os.sleep( 0.1 )
 end
 header()
 
-print("Please fill slot " .. slotFloppy2 .. " with 4 Floppys")
+print("Please fill slot " .. slotFloppy2 .. " with a floppy")
 while(turtle.getItemCount(slotFloppy2) < 1) do
 	os.sleep( 0.1 )
 end
 header()
 
-print("Please fill slot " .. slotFloppy3 .. " with 4 Floppys")
+print("Please fill slot " .. slotFloppy3 .. " with a floppy")
 while(turtle.getItemCount(slotFloppy3) < 1) do
 	os.sleep( 0.1 )
 end
 header()
 
-print("Please fill slot " .. slotFloppy4 .. " with 4 Floppys")
+print("Please fill slot " .. slotFloppy4 .. " with a floppy")
 while(turtle.getItemCount(slotFloppy4) < 1) do
 	os.sleep( 0.1 )
 end
@@ -94,6 +105,12 @@ header()
 
 print("Please fill slot " .. slotLight .. " with 4 Redstone Lamps")
 while(turtle.getItemCount(slotLight) < 4) do
+	os.sleep( 0.1 )
+end
+header()
+
+print("Please fill slot " .. slotTorch .. " with 8 Torchs")
+while(turtle.getItemCount(slotTorch) < 8) do
 	os.sleep( 0.1 )
 end
 header()
@@ -150,6 +167,14 @@ function buildSatellite()
 	sm.moveTo(startPosX + 6, startPosY+1, startPosZ, 3)
 	t.select(slotCobblestone)
 	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX + 6, startPosY+1, startPosZ + 1, 3)
+	t.select(slotTorch)
+	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX + 6, startPosY+1, startPosZ - 1, 3)
+	t.select(slotTorch)
+	t.placeDown()
 	-- Place Modem
 	sm.moveTo(startPosX + 7, startPosY+2, startPosZ, 3)
 	t.select(slotModem)
@@ -180,6 +205,14 @@ function buildSatellite()
 	-- Place Cobblestone Block
 	sm.moveTo(startPosX - 6, startPosY+1, startPosZ, 1)
 	t.select(slotCobblestone)
+	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX - 6, startPosY+1, startPosZ + 1, 1)
+	t.select(slotTorch)
+	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX - 6, startPosY+1, startPosZ - 1, 1)
+	t.select(slotTorch)
 	t.placeDown()
 	-- Place Modem
 	sm.moveTo(startPosX - 7, startPosY+2, startPosZ, 1)
@@ -225,6 +258,14 @@ function buildSatellite()
 	sm.moveTo(startPosX, startPosY+7+1, startPosZ + 6, 0)
 	t.select(slotCobblestone)
 	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX + 1, startPosY+7+1, startPosZ + 6, 0)
+	t.select(slotTorch)
+	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX - 1, startPosY+7+1, startPosZ + 6, 0)
+	t.select(slotTorch)
+	t.placeDown()
 	-- Place Modem
 	sm.moveTo(startPosX, startPosY+7+2, startPosZ + 7, 0)
 	t.select(slotModem)
@@ -255,6 +296,14 @@ function buildSatellite()
 	-- Place Cobblestone Block
 	sm.moveTo(startPosX, startPosY+7+1, startPosZ - 6, 2)
 	t.select(slotCobblestone)
+	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX + 1, startPosY+7+1, startPosZ - 6, 0)
+	t.select(slotTorch)
+	t.placeDown()
+	-- Place Torch on cobble Block
+	sm.moveTo(startPosX - 1, startPosY+7+1, startPosZ - 6, 0)
+	t.select(slotTorch)
 	t.placeDown()
 	-- Place Modem
 	sm.moveTo(startPosX, startPosY+7+2, startPosZ - 7, 2)
