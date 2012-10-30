@@ -1,3 +1,9 @@
+function sp( seconds )
+	if releaseVersion then
+		os.sleep( seconds )
+	end
+end
+
 write("Creating Install Cache...\n")
 -- Lib format
 -- {
@@ -15,53 +21,54 @@ libs = {
 	{"Graphic Interface API", "gui/gui.lua", "gui/gui", true},
 	{"Config API", "util/config.lua", "util/config", true},
 	{"Vector API", "util/vector.lua", "util/vector", true},
+	{"Common Methods API", "util/common.lua", "util/common", true},
 	{"SmartMove API", "turtle/smartmove.lua", "turtle/smartmove", true}
 }
-os.sleep( 0.4 )
+sp( 0.4 )
 
 
 write("Creating lib dir...\n")
-os.sleep( 0.4 )
+sp( 0.4 )
 
 fs.makeDir("/lib")
 for i,dir in ipairs(dirs) do
 	write("Creating lib/" .. dir)
 	fs.makeDir("/lib/" .. dir)
-	os.sleep( 0.3 )
+	sp( 0.3 )
 	write(" *OK*\n")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 end
 write("\n")
-os.sleep( 0.3 )
+sp( 0.3 )
 
 
 
 write("Installing lib files to dir...\n")
-os.sleep( 0.4 )
+sp( 0.4 )
 
 for i,lib in ipairs(libs) do
 	write("Installing lib " .. lib[1])
 	fs.delete ("/lib/" .. lib[3])
 	fs.copy("/disk/lib/" .. lib[2], "/lib/" .. lib[3])
-	os.sleep( 0.3 )
+	sp( 0.3 )
 	write(" *OK*\n")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 end
 write("APIs Installed\n\n")
-	os.sleep( 0.3 )
+sp( 0.3 )
 
 
 
 write("Loading apis...\n")
-os.sleep( 0.4 )
+sp( 0.4 )
 
 for i,lib in ipairs(libs) do
 	write("Loading api " .. lib[3])
 	os.loadAPI('/lib/' .. lib[3])
-	os.sleep( 0.3 )
+	sp( 0.3 )
 	write(" *OK*\n")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 end
 
 write("APIs Loaded\n\n")
-	os.sleep( 0.3 )
+sp( 0.3 )

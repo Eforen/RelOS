@@ -1,3 +1,9 @@
+function sp( seconds )
+	if releaseVersion then
+		os.sleep( seconds )
+	end
+end
+
 
 dirs = { }
 files = { }
@@ -28,21 +34,21 @@ function dothing(dir, loc)
 end
 
 write("Creating Bin Install Cache...\n")
-os.sleep( 0.2 )
+sp( 0.2 )
 
 dothing("/disk/bin", "/")
 
 for _,dir in ipairs( dirs ) do
 	write(dir .. "/\n")
-	os.sleep( 0.3 )
+	sp( 0.3 )
 end
 
 for _,file in ipairs( files ) do
 	write(tostring(file) .. "\n")
-	os.sleep( 0.3 )
+	sp( 0.3 )
 end
 
-os.sleep( 0.4 )
+sp( 0.4 )
 write("Creating bin dir...\n")
 fs.makeDir("/bin")
 
@@ -53,13 +59,13 @@ string.sub("123456789", -4, -1)
 
 for _,dir in ipairs( dirs ) do
 	write("Creating Dir: " .. "/bin" .. dir .. "/ ")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write(".")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write(".")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write(".")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write("\n")
 
 	fs.makeDir("/bin" .. dir)
@@ -68,20 +74,20 @@ end
 for _,file in ipairs( files ) do
 	if string.sub(file, -4, -1) == ".lua" then
 		write("Copy File: " .. "/bin" .. string.sub(file, 1, -5))
-		fs.delete(string.sub(file, 1, -5))
+		fs.delete("/bin" .. string.sub(file, 1, -5))
 		fs.copy("/disk/bin" .. file, "/bin" .. string.sub(file, 1, -5))
 	else
 		write("Copy File: " .. "/bin" .. file)
 		fs.delete("/bin" .. file)
-		fs.copy("/disk/bin" .. file, "/bin" .. string.sub(file, 1, -5))
+		fs.copy("/disk/bin" .. file, "/bin" .. file)
 	end
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write(".")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write(".")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write(".")
-	os.sleep( 0.1 )
+	sp( 0.1 )
 	write("\n")
 end
 

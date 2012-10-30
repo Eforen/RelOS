@@ -1,5 +1,5 @@
 --os.loadAPI('UberMiner/lib/vector')
-os.loadAPI('/MonSrv/lib/serialize')
+--os.loadAPI('/MonSrv/lib/serialize')
 
 os.pullEvent = os.pullEventRaw
 term.clear()
@@ -9,7 +9,7 @@ print("Please find a computer.")
 local firstCycle = true
 local validSender = false
 local modemSide = "front" -- change to the side of the computer your modem is on
-local monitorSide = "bottom" -- change to the side of the computer your modem is on
+local monitorSide = "top" -- change to the side of the computer your modem is on
 local valid = false
 local mon
 senders = {}
