@@ -64,4 +64,5 @@ function getInput( default )
 		else return ""
 		end
 	else return result
+	end
 end

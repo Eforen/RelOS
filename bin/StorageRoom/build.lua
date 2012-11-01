@@ -215,6 +215,7 @@ local width, height, depth, torchheight, torchspace = 5, 4, 20, 3, 5
 local insetChest = false
 
 function setup()
+	term.clear()
 	-- body
 	textutils.slowWrite("Enter width (" .. width .. "): ")
 	width = common.getInput(width)
