@@ -1,12 +1,13 @@
-os.loadAPI('UberMiner/lib/config')
-os.loadAPI('UberMiner/lib/gui')
-os.loadAPI('UberMiner/lib/vector')
+--os.loadAPI('/lib/config')
+--os.loadAPI('/lib/gui')
+--os.loadAPI('/lib/vector')
 
 
 function f()
 	--if not turtle.detect() then turtle.forward() end
 	if not turtle.forward() then
 		write("Failed Move Forward")
+		checkFual()
 		while not turtle.forward() do
 			write("Failed Move Forward Agean Sleeping")
 			sleep(1)
@@ -16,6 +17,7 @@ end
 function b()
 	if not turtle.back() then
 		write("Failed Move Back")
+		checkFual()
 		while not turtle.back() do
 			write("Failed Move Back Agean Sleeping")
 			sleep(1)
@@ -38,6 +40,7 @@ function u()
 	--if not turtle.detectUp() then turtle.up() end
 	--turtle.up()
 	if not turtle.up() then
+		checkFual()
 		write("Failed Move Up")
 		while not turtle.up() do
 			write("Failed Move Up Agean Sleeping")
@@ -49,6 +52,7 @@ function d()
 	--if not turtle.detectDown() then turtle.down() end
 	--turtle.down()
 	if not turtle.down() then
+		checkFual()
 		write("Failed Move Down")
 		while not turtle.down() do
 			write("Failed Move Down Agean Sleeping")
@@ -121,6 +125,7 @@ end
 function makeSideShaft(torchMiddle, depth)
 	if torchMiddle and not turtle.detectDown() then
 		pd(9)
+		turtle.select(1)
 	end
 	tr()
 
@@ -137,6 +142,7 @@ function makeSideShaft(torchMiddle, depth)
 		write(i)
 		if i%5 == 0 then 
 			pd(9)
+			turtle.select(1)
 		end
 		hallStep()
 	end
@@ -168,6 +174,7 @@ function makeSideShaft(torchMiddle, depth)
 		write(i)
 		if i%5 == 0 then 
 			pd(9)
+			turtle.select(1)
 		end
 		hallStep()
 	end
@@ -256,6 +263,7 @@ function checkHole()
 			dig()
 			p(1)
 		end
+		turtle.select(1)
 	end
 end
 function checkHoles()
@@ -283,6 +291,7 @@ function checkHoleUp()
 			digUp()
 			p(1)
 		end
+		turtle.select(1)
 	end
 end
 function checkHoleDown()
@@ -294,6 +303,7 @@ function checkHoleDown()
 			digDown()
 			p(1)
 		end
+		turtle.select(1)
 	end
 end
 function checkHolesAll()
@@ -306,6 +316,7 @@ function checkHolesAll()
 			d()
 			p(1)
 		end
+		turtle.select(1)
 	end
 	if not turtle.detectDown() then
 		pd(1)
@@ -315,6 +326,7 @@ function checkHolesAll()
 			d()
 			p(1)
 		end
+		turtle.select(1)
 	end
 end
 function checkInv(slot)
@@ -332,6 +344,8 @@ function checkInvAll()
 	checkInv(7)
 	checkInv(8)
 end
+
+sideShaftCount = -1
 
 function runNormal()
 	term.clear()
@@ -360,6 +374,7 @@ function runNormal()
 			botStatus = {'Strip Mine','Skipping'}
 			status()
 			write("Skipping.")
+			sideShaftCount = sideShaftCount+1
 			for i=1,3 do
 				write(".")
 				if turtle.detect() then
@@ -380,11 +395,15 @@ function runNormal()
 		botStatus = {'Strip Mine','Hallway'}
 		status()
 		write("Hall Step ")
+		sideShaftCount = sideShaftCount+1
 		for i=1,3 do
 			x, y = term.getCursorPos()
 			term.setCursorPos(x-string.len(tostring(y-1)),y)
 			write(i)
 			hallStep()
+			if(i==1) then
+				sideSigns()
+			end
 		end
 		print("")
 
@@ -398,12 +417,43 @@ function runNormal()
 		botStatus = {'Strip Mine','Returning'}
 		status()
 		write("Returning.")
+		sideShaftCount = sideShaftCount-1
 		for i=1,3 do
 			write(".")
 			b()
 		end
 	end
 	d()
+end
+
+function sideSigns()
+	--Do Right
+	tr()
+	dig()
+	f()
+	tl()
+	digDown()
+	d()
+	pd(1)
+	u()
+	turtle.select(signSlot)
+	turtle.placeDown("SideShaft\n" .. tostring(sideShaftCount) .. "a\n========>")
+	--Return to center
+	tl()
+	f()
+	--Do Left
+	--tl()
+	dig()
+	f()
+	tr()
+	digDown()
+	d()
+	pd(1)
+	u()
+	turtle.select(signSlot)
+	turtle.placeDown("SideShaft\n" .. tostring(sideShaftCount) .. "b\n<========")
+	--Return to center
+	r()
 end
 
 function hallwayStep(torch, right)
@@ -428,17 +478,21 @@ function hallwayStep(torch, right)
 		u()
 	end
 
-	if torch==true and right == true then
+	--if torch==true and right == true then
+	if torch==true then
+		write("torch " .. tostring(torch) .. ":" .. tostring(right) .. "\n")
 		tr()
 		if turtle.detect() then
+			write("torch dig in " .. tostring(torch) .. ":" .. tostring(right) .. "\n")
 			dig()
 			f()
 			checkHolesUp()
 		else
+			write("torch just in " .. tostring(torch) .. ":" .. tostring(right) .. "\n")
 			f()
 		end
-		p(9)
 		b()
+		p(9)
 		tl()
 	end
 
@@ -454,11 +508,14 @@ function hallwayStep(torch, right)
 
 	if turtle.detect() then
 		dig()
+		f()
+		checkHole()
+		tr()
+		checkHole()
+	else
+		f()
+		tr()
 	end
-	f()
-	checkHole()
-	tr()
-	checkHole()
 
 	if not turtle.detectUp() then
 		pu(1)
@@ -466,33 +523,43 @@ function hallwayStep(torch, right)
 
 	if turtle.detectDown() then
 		digDown()
-	end
-	d()
-	checkHole()
-	tl()
-	checkHole()
-
-	if torch==true and right == true then
+		d()
+		checkHole()
 		tl()
+		checkHole()
+	else
+		d()
+		tl()
+	end
+
+	--if torch==true and right == true then
+	if torch==true then
+		write("torch " .. tostring(torch) .. ":" .. tostring(right) .. "\n")
+		--tl()
 		if turtle.detect() then
+			write("torch dig in " .. tostring(torch) .. ":" .. tostring(right) .. "\n")
 			dig()
 			f()
 			checkHolesUp()
 		else
+			write("torch just in " .. tostring(torch) .. ":" .. tostring(right) .. "\n")
 			f()
 		end
-		p(9)
 		b()
-		tr()
+		p(9)
+		--tr()
 	end
 
 	if turtle.detectDown() then
 		digDown()
+		d()
+		checkHole()
+		tr()
+		checkHole()
+	else
+		d()
+		tr()
 	end
-	d()
-	checkHole()
-	tr()
-	checkHole()
 
 	r()
 end
@@ -522,24 +589,31 @@ function runHallway()
 			x, y = term.getCursorPos()
 			term.setCursorPos(x-string.len(tostring(y-1)),y)
 			write(i)
-			hallwayStep((y%torchSep==0), torchRight)
-			if y%torchSep==0 then torchRight = not torchRight end
+			if i==1 then
+				hallwayStep(true,true)
+			else
+				hallwayStep((i%torchSep==0), torchRight)
+			end
+			if i%torchSep==0 then torchRight = not torchRight end
 		end
 		print("")
 	--end
 
-	for y=1,Depth+Skips do
+	for ii=1,Depth do
 		term.clear()
 		term.setCursorPos( 1, 1 )
 		version()
 		botStatus = {'Hallway','Returning'}
 		status()
-		write("Returning.")
-		for i=1,3 do
+		write("\nReturning.")
+		if ii%4==0 then
+			write("\nReturning.")
+		else
 			write(".")
-			b()
 		end
+		b()
 	end
+	write("\n- Returned -")
 end
 
 function runTestCom()
@@ -547,6 +621,14 @@ function runTestCom()
 	sleep(5)
 end
 
+function checkFual()
+	write("Debug: checkFual(); \n")
+	if (turtle.getFuelLevel()<=0) then
+		write("Debug: refualing... \n")
+		turtle.select(fualSlot)
+		turtle.refuel(1)
+	end
+end
 
 -- global vars
 botArray = {-1, -1, -1, -1}
@@ -554,6 +636,8 @@ botStatus = {'Docked','Idle'}
 botID = -1
 dock = vector.vector()
 mode = 0
+fualSlot = 16
+signSlot = 15
 -- Modes:
 -- 0 - dig
 -- 1 - place
