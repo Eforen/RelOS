@@ -145,6 +145,8 @@ end
 
 function buildSatellite()
 
+	sm.moveTo(posX, 220, posZ, posF)
+
 	local startPosX, startPosY, startPosZ, startPosF = sm.getX(), sm.getY(), sm.getZ(), sm.getDir()
 
 	--sm.moveTo(startPosX - 6, startPosY, startPosZ, 3)
@@ -332,11 +334,11 @@ if kill == true then
 else
 	write("Running...\n")
 	--sm.up()
-	sm.moveTo(352, 64, 458, 0)
+	sm.moveTo(posX, posY, posZ, posF)
 	sleep(1)
-	sm.moveTo(352, 70, 458, 3)
+	sm.moveTo(posX, posY+1, posZ, posF)
 	buildSatellite()
 	sleep(2)
-	sm.moveTo(352, 64, 458, 0)
+	sm.moveTo(posX, posY, posZ, posF)
 	print("Done")
 end
