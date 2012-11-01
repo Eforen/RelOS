@@ -15,5 +15,5 @@ shell.run("/disk/installBIN.lua")
 
 write("Running startup app\n")
 if turtle ~= nil then
-	shell.run("/bin/satellite/buildTest") --Testing
+	shell.run("/bin/StorageRoom/build") --Testing
 end

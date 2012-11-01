@@ -56,3 +56,12 @@ function getTurtlePos( header )
 
 	return posX, posY, posZ, dir
 end
+
+function getInput( default )
+	result = read()
+	if result == "" or result == nil or result == "\n" or result == "\r" or result == " " then
+		if default ~= nil then return default
+		else return ""
+		end
+	else return result
+end

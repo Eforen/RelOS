@@ -7,7 +7,7 @@ function f()
 	--if not turtle.detect() then turtle.forward() end
 	if not turtle.forward() then
 		write("Failed Move Forward")
-		checkFual()
+		checkFuel()
 		while not turtle.forward() do
 			write("Failed Move Forward Agean Sleeping")
 			sleep(1)
@@ -17,7 +17,7 @@ end
 function b()
 	if not turtle.back() then
 		write("Failed Move Back")
-		checkFual()
+		checkFuel()
 		while not turtle.back() do
 			write("Failed Move Back Agean Sleeping")
 			sleep(1)
@@ -40,7 +40,7 @@ function u()
 	--if not turtle.detectUp() then turtle.up() end
 	--turtle.up()
 	if not turtle.up() then
-		checkFual()
+		checkFuel()
 		write("Failed Move Up")
 		while not turtle.up() do
 			write("Failed Move Up Agean Sleeping")
@@ -52,7 +52,7 @@ function d()
 	--if not turtle.detectDown() then turtle.down() end
 	--turtle.down()
 	if not turtle.down() then
-		checkFual()
+		checkFuel()
 		write("Failed Move Down")
 		while not turtle.down() do
 			write("Failed Move Down Agean Sleeping")
@@ -621,11 +621,11 @@ function runTestCom()
 	sleep(5)
 end
 
-function checkFual()
-	write("Debug: checkFual(); \n")
+function checkFuel()
+	write("Debug: checkFuel(); \n")
 	if (turtle.getFuelLevel()<=0) then
-		write("Debug: refualing... \n")
-		turtle.select(fualSlot)
+		write("Debug: refueling... \n")
+		turtle.select(fuelSlot)
 		turtle.refuel(1)
 	end
 end
@@ -636,7 +636,7 @@ botStatus = {'Docked','Idle'}
 botID = -1
 dock = vector.vector()
 mode = 0
-fualSlot = 16
+fuelSlot = 16
 signSlot = 15
 -- Modes:
 -- 0 - dig
