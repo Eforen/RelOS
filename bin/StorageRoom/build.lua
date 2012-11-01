@@ -215,6 +215,7 @@ local width, height, depth, torchheight, torchspace = 5, 4, 20, 3, 5
 local insetChest = false
 
 function setup()
+	term.setCursorPos( 1, 1 )
 	term.clear()
 	-- body
 	textutils.slowWrite("Enter width (" .. width .. "): ")
@@ -253,10 +254,9 @@ menulist = {
 	'Setup',
 	'Build',
 	'Update Firmware',
-	'Turn Off',
-	'Test Command'
+	'Turn Off'
 }
-cmenu = gui.clist.create(3,4,menulist)
+cmenu = gui.clist.create(3,9,menulist)
 
 -- startup screen
 function screen()
@@ -273,10 +273,11 @@ function menu()
 end
 
 function status()
-	--gui.box(term,1,10,36,8)
+	gui.box(term,1,8,39,6) -- Draw Box for Menu
+
 	gui.box(term,1,1,11,3) -- Status Box Label --
-	gui.box(term,11,1,26,3)
-	--gui.box(term,30,5,18,6)
+	gui.box(term,11,1,29,3) -- Status Value Box --
+	
 	term.setCursorPos( 2, 2 )
 	term.write('Status:')
 	-- Print droid status
@@ -285,8 +286,43 @@ function status()
 	term.write('[' .. botStatus[1] .. '] ' .. botStatus[2])
 	-- Print dock location
 
+	gui.box(term,1,3,11,6) -- Settings Label Box --
+	gui.box(term,11,3,7,6) -- Settings Value Box --
+	gui.box(term,17,3,15,6) -- Settings Label Box2 --
+	gui.box(term,31,3,9,6) -- Settings Value Box2 --
+	
+	term.setCursorPos( 2, 4 )
+	term.write('Width: ')
+	term.setCursorPos( 12, 4 )
+	term.write(tostring(width))
+	
+	term.setCursorPos( 2, 5 )
+	term.write('Height:')
+	term.setCursorPos( 12, 5 )
+	term.write(tostring(height))
+
+	term.setCursorPos( 2, 6 )
+	term.write('Depth:')
+	term.setCursorPos( 12, 6 )
+	term.write(tostring(depth))
+	
+	term.setCursorPos( 18, 4 )
+	term.write('Torch Level:')
+	term.setCursorPos( 32, 4 )
+	term.write(tostring(torchheight))
+	
+	term.setCursorPos( 18, 5 )
+	term.write('Torch Space:')
+	term.setCursorPos( 32, 5 )
+	term.write(tostring(torchspace))
+
+	term.setCursorPos( 18, 6 )
+	term.write('Chest Inset:')
+	term.setCursorPos( 32, 6 )
+	term.write(tostring(insetChest))
+
 	-- Return cursor
-	term.setCursorPos( 1, 4 )
+	term.setCursorPos( 1, 10 )
 end
 
 -- main loop
