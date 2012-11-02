@@ -31,19 +31,53 @@ function close()
 	end
 end
 
+function broadcastAlive()
+	rednet.br
+end
+
 local firstCycle = true
 local running = true
 
-while running do 
-  validSender = false
-  if firstCycle then
-    bootUp()
-    firstCycle = false
-  end
-  local senderId = nil
-  local message
-  local distance
+open()
+local LightBlink = os.startTimer(3)
+local LightBlinkStep = 0
+local LightBlinkStatus = true
 
-  while senderId == nil do
-    senderId, message, distance = rednet.receive(10)
-  end
+while running do
+	event, var2, var3 = os.pullEvent()
+	if event == 'key' then
+	elseif event == 'timer' then
+		LightBlinkStep=LightBlinkStep+1
+		if LightBlinkStep == 0 then
+			os.startTimer(3)
+			LightBlinkStatus = false
+		elseif LightBlinkStep == 1 then
+			os.startTimer(0.25)
+			LightBlinkStatus = true
+		elseif LightBlinkStep == 2 then
+			os.startTimer(0.25)
+			LightBlinkStatus = false
+		elseif LightBlinkStep == 3 then
+			os.startTimer(0.25)
+			LightBlinkStatus = true
+		elseif LightBlinkStep == 4 then
+			os.startTimer(0.25)
+			LightBlinkStatus = false
+		elseif LightBlinkStep == 5 then
+			os.startTimer(0.25)
+			LightBlinkStatus = true
+		elseif LightBlinkStep == 6 then
+			os.startTimer(0.25)
+			LightBlinkStatus = false
+		elseif LightBlinkStep == 7 then
+			os.startTimer(0.25)
+			LightBlinkStatus = true
+		end
+
+		redstone.setOutput("front", LightBlinkStatus)
+
+	elseif event == 'rednet_message' then
+		senderId, message, distance = rednet.receive(25)
+		broadcastAlive()
+	end
+end
