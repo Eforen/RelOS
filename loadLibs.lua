@@ -3,7 +3,7 @@ function load(dir)
 
 	for _,file in ipairs( FileList ) do --Loop. Underscore because we don't use the key, ipairs so it's in order
 		if fs.isDir(dir .. file) then -- isDir
-			dothing(dir .. "/" .. file)
+			load(dir .. "/" .. file)
 		else --isNotDir
 			--table.insert(files, loc .. file)
 			os.loadAPI(dir .. "/" .. file)

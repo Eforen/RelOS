@@ -145,7 +145,7 @@ end
 
 function buildSatellite()
 
-	sm.moveTo(posX, 220, posZ, posF)
+	sm.moveTo(posX, 120, posZ, posF)
 
 	local startPosX, startPosY, startPosZ, startPosF = sm.getX(), sm.getY(), sm.getZ(), sm.getDir()
 
@@ -165,6 +165,11 @@ function buildSatellite()
 	sm.moveTo(startPosX + 6, startPosY-1, startPosZ, 3)
 	t.select(slotDiskDrive)
 	t.place()
+	-- Load disk into drive
+	t.select(slotFloppy1)
+	t.drop()
+	-- Install SatelliteOS
+	shell.run("/bin/satellite/install/install "..tostring(startPosX + 7).." "..tostring(startPosY).." "..tostring(startPosZ))
 	-- Place Cobblestone Block
 	sm.moveTo(startPosX + 6, startPosY+1, startPosZ, 3)
 	t.select(slotCobblestone)
@@ -204,6 +209,11 @@ function buildSatellite()
 	sm.moveTo(startPosX - 6, startPosY-1, startPosZ, 1)
 	t.select(slotDiskDrive)
 	t.place()
+	-- Load disk into drive
+	t.select(slotFloppy2)
+	t.drop()
+	-- Install SatelliteOS
+	shell.run("/bin/satellite/install/install "..tostring(startPosX - 7).." "..tostring(startPosY).." "..tostring(startPosZ))
 	-- Place Cobblestone Block
 	sm.moveTo(startPosX - 6, startPosY+1, startPosZ, 1)
 	t.select(slotCobblestone)
@@ -256,6 +266,11 @@ function buildSatellite()
 	sm.moveTo(startPosX, startPosY+7-1, startPosZ + 6, 0)
 	t.select(slotDiskDrive)
 	t.place()
+	-- Load disk into drive
+	t.select(slotFloppy3)
+	t.drop()
+	-- Install SatelliteOS
+	shell.run("/bin/satellite/install/install "..tostring(startPosX).." "..tostring(startPosY+7).." "..tostring(startPosZ+7))
 	-- Place Cobblestone Block
 	sm.moveTo(startPosX, startPosY+7+1, startPosZ + 6, 0)
 	t.select(slotCobblestone)
@@ -295,6 +310,11 @@ function buildSatellite()
 	sm.moveTo(startPosX, startPosY+7-1, startPosZ - 6, 2)
 	t.select(slotDiskDrive)
 	t.place()
+	-- Load disk into drive
+	t.select(slotFloppy4)
+	t.drop()
+	-- Install SatelliteOS
+	shell.run("/bin/satellite/install/install "..tostring(startPosX).." "..tostring(startPosY+7).." "..tostring(startPosZ-7))
 	-- Place Cobblestone Block
 	sm.moveTo(startPosX, startPosY+7+1, startPosZ - 6, 2)
 	t.select(slotCobblestone)

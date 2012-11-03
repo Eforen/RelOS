@@ -1,3 +1,6 @@
+os.loadAPI("/SatelliteSettings")
+os.loadAPI("/modules/moduleGPS")
+
 local sOpenedSide = nil
 local function open()
 	local bOpen, sFreeSide = false, nil
@@ -32,52 +35,55 @@ function close()
 end
 
 function broadcastAlive()
-	rednet.br
+	--rednet.br
 end
 
 local firstCycle = true
 local running = true
 
 open()
-local LightBlink = os.startTimer(3)
+moduleGPS.setup(SatelliteSettings.getPos())
+local LightBlinkTimer = os.startTimer(3)
 local LightBlinkStep = 0
 local LightBlinkStatus = true
+local broadcastAliveTimer
 
 while running do
 	event, var2, var3 = os.pullEvent()
 	if event == 'key' then
-	elseif event == 'timer' then
+	elseif event == 'timer' and var2 == LightBlinkTimer then
 		LightBlinkStep=LightBlinkStep+1
 		if LightBlinkStep == 0 then
-			os.startTimer(3)
+			LightBlinkTimer = os.startTimer(6)
 			LightBlinkStatus = false
 		elseif LightBlinkStep == 1 then
-			os.startTimer(0.25)
+			LightBlinkTimer = os.startTimer(1)
 			LightBlinkStatus = true
 		elseif LightBlinkStep == 2 then
-			os.startTimer(0.25)
+			LightBlinkTimer = os.startTimer(1)
 			LightBlinkStatus = false
 		elseif LightBlinkStep == 3 then
-			os.startTimer(0.25)
+			LightBlinkTimer = os.startTimer(1)
 			LightBlinkStatus = true
 		elseif LightBlinkStep == 4 then
-			os.startTimer(0.25)
+			LightBlinkTimer = os.startTimer(1)
 			LightBlinkStatus = false
 		elseif LightBlinkStep == 5 then
-			os.startTimer(0.25)
+			LightBlinkTimer = os.startTimer(1)
 			LightBlinkStatus = true
+			LightBlinkStep = -1 --Reset
 		elseif LightBlinkStep == 6 then
-			os.startTimer(0.25)
+			LightBlinkTimer = os.startTimer(0.25)
 			LightBlinkStatus = false
 		elseif LightBlinkStep == 7 then
-			os.startTimer(0.25)
+			LightBlinkTimer = os.startTimer(0.25)
 			LightBlinkStatus = true
+			LightBlinkStep = 0
 		end
-
 		redstone.setOutput("front", LightBlinkStatus)
-
-	elseif event == 'rednet_message' then
-		senderId, message, distance = rednet.receive(25)
+	elseif event == 'timer' and var2 == broadcastAliveTimer then
 		broadcastAlive()
+	elseif event == 'rednet_message' then
+		moduleGPS.netMsg( var2, var3 )
 	end
 end
