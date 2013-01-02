@@ -1,3 +1,5 @@
+local onBox = false
+
 function sp( seconds )
 	if releaseVersion then
 		os.sleep( seconds )
@@ -71,4 +73,7 @@ for i,lib in ipairs(libs) do
 end
 
 write("APIs Loaded\n\n")
+sp( 0.3 )
+
+write("Setting API Boot Loaders\n\n")
 sp( 0.3 )

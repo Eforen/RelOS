@@ -27,6 +27,13 @@ function getTurtlePos( header )
 		isGPS = standardConfermaion()
 	end
 
+	posX, posY, posZ = smartmove.getX(), smartmove.getY(), smartmove.getZ()
+	if posX ~= nil then
+		if header ~= nil then printStandardHeader(header) end
+		print("Is this turtle at X=" .. tostring(posX) .. " Y=" .. tostring(posY) .. " Z=" .. tostring(posZ) .. " (Y/N)?")
+		isGPS = standardConfermaion()
+	end
+
 	if isGPS == false then
 		if header ~= nil then printStandardHeader(header) end
 		write("What is the X pos of this turtle: ")
@@ -39,16 +46,31 @@ function getTurtlePos( header )
 		posZ = tonumber(read())
 	end
 
-	if header ~= nil then printStandardHeader(header) end
-	print("What is this turtles f direction?")
-	print("2: North")
-	print("3: East")
-	print("0: South")
-	print("1: West")
-	write("Enter the correct f#: ")
-	local dir = tonumber(read())
-	if header ~= nil then printStandardHeader(header) end
+	local dir = smartmove.getDir()
+	isGPS = false --Reuse isGPS
+	if posX ~= nil then
+		if header ~= nil then printStandardHeader(header) end
+		print("What is this turtles f direction?")
+		print("2: North")
+		print("3: East")
+		print("0: South")
+		print("1: West")
+		print("Is faceing F=" .. tostring(dir) .. " (Y/N)?")
+		isGPS = standardConfermaion() --Reuse isGPS
+	end
 
+	if isGPS == false then
+		if header ~= nil then printStandardHeader(header) end
+		print("What is this turtles f direction?")
+		print("2: North")
+		print("3: East")
+		print("0: South")
+		print("1: West")
+		write("Enter the correct f#: ")
+		dir = tonumber(read())
+	end
+
+	if header ~= nil then printStandardHeader(header) end
 	print("Is X=" .. tostring(posX) .. " Y=" .. tostring(posY) .. " Z=" .. tostring(posZ) .. " F=" .. tostring(dir) .. " correct (Y/N)?")
 	isGPS = standardConfermaion() --Reuse isGPS for confermation
 
