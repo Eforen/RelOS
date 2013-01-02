@@ -1,52 +1,3 @@
-
-local function printUsage()
-	print( "Usages:" )
-	print( "gps host" )
-	print( "gps host <x> <y> <z>" )
-	print( "gps locate" )
-end
-
-local tArgs = { ... }
-if #tArgs < 1 then
-	printUsage()
-	return
-end
-	
-local sCommand = tArgs[1]
-if sCommand == "locate" then
-	if open() then
-		gps.locate( 2, true )
-		close()
-	end
-	
-elseif sCommand == "host" then
-	if open() then
-		local x,y,z
-		if #tArgs >= 4 then
-			x = tonumber(tArgs[2])
-			y = tonumber(tArgs[3])
-			z = tonumber(tArgs[4])
-			if x == nil or y == nil or z == nil then
-				printUsage()
-				return
-			end
-			print( "Position is "..x..","..y..","..z )
-		else
-			x,y,z = gps.locate( 2, true )
-			if x == nil then
-				print( "Run \"gps host <x> <y> <z>\" to set position manually" )
-				close()
-				return
-			end
-		end
-	
-	end
-	
-else
-	printUsage()
-	return
-end
-
 local x,y,z
 local nServed = 0
 local status = "Not Started..."
@@ -60,17 +11,15 @@ function loop()
 end
 
 function netMsg( senderId, message, distance )
-	if status == "Serving GPS requests" then
-		if message == "PING" then
-			rednet.send(sender, textutils.serialize({x,y,z}))
-			
-			nServed = nServed + 1
-			if nServed > 1 then
-				local x,y = term.getCursorPos()
-				term.setCursorPos(1,y-1)
-			end
-			print( nServed.." GPS Requests served" )
+	if message == "PING" then
+		rednet.send(sender, textutils.serialize({x,y,z}))
+		
+		nServed = nServed + 1
+		if nServed > 1 then
+			local x,y = term.getCursorPos()
+			term.setCursorPos(1,y-1)
 		end
+		print( nServed.." GPS Requests served" )
 	end
 end
 
