@@ -32,7 +32,7 @@ function close()
 end
 
 function broadcastAlive()
-	rednet.br
+	--rednet.br
 end
 
 local firstCycle = true
