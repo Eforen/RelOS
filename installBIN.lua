@@ -18,7 +18,7 @@ libs = {
 local pageLine = 1
 function stepPage()
 	pageLine = pageLine + 1
-	printer.setCursorPos(0, pageLine)
+	--printer.setCursorPos(0, pageLine)
 end
 
 function dothing(dir, loc)
@@ -29,13 +29,13 @@ function dothing(dir, loc)
 			--dirs = {dirs, loc .. file}
 			table.insert(dirs, loc .. file)
 			dothing(dir .. "/" .. file, loc .. file .. "/")
-			printer.write( dir .. "/" .. file.."/:d")
-			stepPage()
+			--printer.write( dir .. "/" .. file.."/:d")
+			--stepPage()
 		else
 			--files = {files, loc .. file}
 			table.insert(files, loc .. file)
-			printer.write( dir..loc..file..":f")
-			stepPage()
+			--printer.write( dir..loc..file..":f")
+			--stepPage()
 		end
 		--print( "Found File:" .. file ) --Print the file name
 		--os.sleep( 0.3 )
@@ -46,11 +46,11 @@ end
 write("Creating Bin Install Cache...\n")
 sp( 0.2 )
 
-printer = peripheral.wrap( "right" )
-printer.newPage()
-printer.setPageTitle("Search Debug Printout")
+--printer = peripheral.wrap( "right" )
+--printer.newPage()
+--printer.setPageTitle("Search Debug Printout")
 dothing("/disk/bin", "/")
-printer.endPage()
+--printer.endPage()
 
 for _,dir in ipairs( dirs ) do
 	write(dir .. "/\n")
@@ -85,23 +85,23 @@ for _,dir in ipairs( dirs ) do
 	fs.makeDir("/bin" .. dir)
 end
 
-printer.newPage()
+--printer.newPage()
 pageLine = 0
 stepPage()
-printer.setPageTitle("Copy Debug Printout")
+--printer.setPageTitle("Copy Debug Printout")
 for _,file in ipairs( files ) do
 	if string.sub(file, -4, -1) == ".lua" then
 		write("Copy File: " .. "/bin" .. string.sub(file, 1, -5))
 		fs.delete("/bin" .. string.sub(file, 1, -5))
 		fs.copy("/disk/bin" .. file, "/bin" .. string.sub(file, 1, -5))
-		printer.write( "f:/bin" .. string.sub(file, 1, -5))
-		stepPage()
+		--printer.write( "f:/bin" .. string.sub(file, 1, -5))
+		--stepPage()
 	else
 		write("Copy File: " .. "/bin" .. file)
 		fs.delete("/bin" .. file)
 		fs.copy("/disk/bin" .. file, "/bin" .. file)
-		printer.write( "d:/bin" .. file)
-		stepPage()
+		--printer.write( "d:/bin" .. file)
+		--stepPage()
 	end
 	sp( 0.1 )
 	write(".")
@@ -112,7 +112,7 @@ for _,file in ipairs( files ) do
 	sp( 0.1 )
 	write("\n")
 end
-printer.endPage()
+--printer.endPage()
 
 --[[
 for dir in dirs do
